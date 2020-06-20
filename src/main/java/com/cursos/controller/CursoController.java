@@ -1,10 +1,10 @@
 package com.cursos.controller;
 
-import com.cursos.exception.CategoriaInvalidaException;
-import com.cursos.exception.CursoNotFoundException;
-import com.cursos.exception.InvalidPeriodException;
+import com.cursos.exception.*;
 import com.cursos.model.Curso;
 import com.cursos.service.CursoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/cursos")
 public class CursoController {
+
+    Logger logger = LoggerFactory.getLogger(CursoController.class);
 
     @Autowired
     private CursoService cursoService;
@@ -38,6 +40,7 @@ public class CursoController {
     @CrossOrigin
     @GetMapping()
     public ResponseEntity<List<Curso>> getAllCursos() throws CursoNotFoundException {
+        logger.debug("BUSCANDO TODOS OS CURSOS DA BASE ...");
         List<Curso> cursoList = cursoService.getAllCursos();
 
         return ResponseEntity.ok(cursoList);
@@ -45,7 +48,8 @@ public class CursoController {
 
     @CrossOrigin
     @PostMapping()
-    public ResponseEntity<Curso> addCurso(@Valid @RequestBody Curso newCurso) throws CursoNotFoundException, InvalidPeriodException, CategoriaInvalidaException {
+    public ResponseEntity<Curso> addCurso(@Valid @RequestBody Curso newCurso) throws CursoApplicationException {
+        logger.debug("CURSO A SER ADICIONADO:\n" + newCurso);
         Curso curso = cursoService.addCurso(newCurso);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(curso.getId()).toUri();
@@ -56,7 +60,7 @@ public class CursoController {
     @CrossOrigin
     @PutMapping(value="/id/{id}")
     public ResponseEntity<Void> update(@PathVariable("id") Integer id,
-                                 @RequestBody Curso cursoAtualizado) throws CursoNotFoundException, InvalidPeriodException, CategoriaInvalidaException {
+                                        @RequestBody Curso cursoAtualizado) throws CursoApplicationException {
         cursoService.updateCurso(id, cursoAtualizado);
 
         return ResponseEntity.ok().build();
@@ -69,7 +73,5 @@ public class CursoController {
 
         return ResponseEntity.noContent().build();
     }
-
-
 
 }

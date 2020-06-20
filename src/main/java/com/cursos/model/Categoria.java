@@ -1,24 +1,47 @@
 package com.cursos.model;
 
-public enum Categoria {
-    COMPORTAMENTAL(1, "Comportamental"),
-    PROGRAMACAO(2, "Programacao"),
-    QUALIDADE(3, "Qualidade"),
-    PROCESSOS(4, "Processos");
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
+@Entity
+public class Categoria {
+    @Id
     private Integer codigo;
-    private String nome;
+    @NotEmpty
+    @Column(unique=true)
+    private String descricao;
 
-    Categoria(Integer codigo, String nome) {
+    public Categoria() {
+    }
+
+    public Categoria(Integer codigo, String descricao) {
         this.codigo = codigo;
-        this.nome = nome;
+        this.descricao = descricao;
     }
 
     public Integer getCodigo() {
         return codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "codigo=" + codigo +
+                ", descricao='" + descricao + '\'' +
+                '}';
     }
 }

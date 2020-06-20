@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.cursos.util.CursoConstants.ExceptionMessages.CURSO_EXISTENTE;
+
 @ControllerAdvice
 public class CursoExceptionHandler {
 
@@ -44,10 +46,10 @@ public class CursoExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<StandardError> dateTimeInvalid(DataIntegrityViolationException e, HttpServletRequest request) {
+    @ExceptionHandler(CursoAlreadyExistException.class)
+    public ResponseEntity<StandardError> dateTimeInvalid(CursoAlreadyExistException e, HttpServletRequest request) {
 
-        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Curso já existente", "Um curso com mesmo nome já existe!", request.getRequestURI());
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Curso já existente", e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }

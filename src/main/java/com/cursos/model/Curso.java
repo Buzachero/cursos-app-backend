@@ -3,7 +3,6 @@ package com.cursos.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,7 +14,6 @@ public class Curso {
     private Integer id;
 
     @NotEmpty
-    @Column(unique=true)
     private String descricao;
 
     @JsonFormat(pattern="dd/MM/yyyy")
@@ -31,12 +29,15 @@ public class Curso {
     @Column(name = "QNT_ALUNOS")
     private Integer quantidadeAlunos;
 
-    private Integer categoria;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORIA_CODIGO")
+    @NotNull
+    private Categoria categoria;
 
     public Curso() {
     }
 
-    public Curso(Integer id, String descricao, LocalDate dataInicio, LocalDate dataTermino, Integer quantidadeAlunos, Integer categoria) {
+    public Curso(Integer id, String descricao, LocalDate dataInicio, LocalDate dataTermino, Integer quantidadeAlunos, Categoria categoria) {
         this.id = id;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
@@ -85,11 +86,11 @@ public class Curso {
         this.quantidadeAlunos = quantidadeAlunos;
     }
 
-    public Integer getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Integer categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

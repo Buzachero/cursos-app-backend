@@ -9,5 +9,6 @@ public interface CursoConstants {
         String DATA_INVALIDA = "Data inicial '%s' é posterior a data final '%s'";
         String PERIODO_EXISTENTE = "Existe(m) curso(s) planejados(s) dentro do período informado";
         String CATEGORIA_INVALIDA = "Categoria %d é inválida";
+        String CURSO_EXISTENTE = "O curso com descricao '%s'já existe na base";
     }
 }
