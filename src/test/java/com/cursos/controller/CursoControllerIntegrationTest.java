@@ -99,7 +99,7 @@ public class CursoControllerIntegrationTest {
 
     @Test
     @Transactional
-    public void testAddCursoComPeriodoJaExistenteShouldReturnBadRequest() throws Exception {
+    public void testAddCursoComDataInicioDentroPeriodoJaExistenteShouldReturnBadRequest() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.post(CURSO_BASE_URL_SUFFIX)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"descricao\":\"Descricao de exemplo 3\"," +
@@ -117,11 +117,47 @@ public class CursoControllerIntegrationTest {
 
     @Test
     @Transactional
+    public void testAddCursoComDataTerminoDentroPeriodoJaExistenteShouldReturnBadRequest() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.post(CURSO_BASE_URL_SUFFIX)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"descricao\":\"Descricao de exemplo 4\"," +
+                        "\"dataInicio\": \"20/07/2020\", " +
+                        "\"dataTermino\": \"20/08/2020\", " +
+                        "\"quantidadeAlunos\":15," +
+                        " \"categoria\": {" +
+                        "        \"codigo\": 1, " +
+                        "        \"descricao\": \"COMPORTAMENTAL\" " +
+                        "    }" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    public void testAddCursoComDataInicioEDataTerminoForaPeriodoJaExistenteShouldReturnBadRequest() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.post(CURSO_BASE_URL_SUFFIX)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"descricao\":\"Descricao de exemplo 5\"," +
+                        "\"dataInicio\": \"01/06/2020\", " +
+                        "\"dataTermino\": \"01/10/2020\", " +
+                        "\"quantidadeAlunos\":15," +
+                        " \"categoria\": {" +
+                        "        \"codigo\": 1, " +
+                        "        \"descricao\": \"COMPORTAMENTAL\" " +
+                        "    }" +
+                        "}"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
     public void testAddCursoComCategoriaInvalidaShouldReturnBadRequest() throws Exception {
         Integer categoriaIdInvalida = 10;
         this.mockMvc.perform(MockMvcRequestBuilders.post(CURSO_BASE_URL_SUFFIX)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"descricao\":\"Descricao de exemplo 4\"," +
+                .content("{\"descricao\":\"Descricao de exemplo 6\"," +
                         "\"dataInicio\": \"15/12/2020\", " +
                         "\"dataTermino\": \"31/12/2020\", " +
                         "\"quantidadeAlunos\":15," +

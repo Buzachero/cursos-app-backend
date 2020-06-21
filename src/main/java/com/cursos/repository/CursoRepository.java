@@ -19,8 +19,12 @@ public interface CursoRepository extends JpaRepository<Curso, Integer> {
 
     @Transactional(readOnly = true)
     Optional<Curso> findByDescricao(String descricao);
-
-    @Query("SELECT curso.id FROM Curso curso WHERE (:dataInicio BETWEEN curso.dataInicio AND curso.dataTermino) OR (:dataTermino BETWEEN curso.dataInicio AND curso.dataTermino)")
+    
+    @Query("SELECT curso.id " +
+            "FROM Curso curso " +
+            "WHERE (:dataInicio <= curso.dataInicio AND :dataTermino >= curso.dataTermino) " +
+            "   OR (:dataInicio BETWEEN curso.dataInicio AND curso.dataTermino) " +
+            "   OR (:dataTermino BETWEEN curso.dataInicio AND curso.dataTermino)")
     @Transactional(readOnly = true)
     List<Integer> findCursoComMesmoPeriodo(LocalDate dataInicio, LocalDate dataTermino);
 
