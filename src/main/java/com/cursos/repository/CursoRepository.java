@@ -13,13 +13,17 @@ import java.util.Optional;
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Integer> {
 
+    @Query("SELECT c FROM Curso c JOIN FETCH c.categoria")
+    @Transactional(readOnly = true)
+    List<Curso> findAll();
+
     @Query("SELECT curso.id FROM Curso curso WHERE curso.id = :cursoId")
     @Transactional(readOnly = true)
     Integer findId(Integer cursoId);
 
     @Transactional(readOnly = true)
     Optional<Curso> findByDescricao(String descricao);
-    
+
     @Query("SELECT curso.id " +
             "FROM Curso curso " +
             "WHERE (:dataInicio <= curso.dataInicio AND :dataTermino >= curso.dataTermino) " +
