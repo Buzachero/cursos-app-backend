@@ -23,22 +23,22 @@ public class CursoController {
     @Autowired
     private CursoService cursoService;
 
-    @GetMapping(value = "/id/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Curso> getCursoById(@PathVariable Integer id) throws CursoNotFoundException {
         Curso curso = cursoService.getCursoById(id);
 
         return ResponseEntity.ok(curso);
     }
 
-    @GetMapping(value = "/descricao/{descricao}")
-    public ResponseEntity<Curso> getCursoByDescricao(@PathVariable String descricao) throws CursoNotFoundException {
+    @GetMapping(value = "/curso")
+    public ResponseEntity<Curso> getCursoByDescricao(@RequestParam String descricao) throws CursoNotFoundException {
         Curso curso = cursoService.getCursoByDescricao(descricao);
 
         return ResponseEntity.ok(curso);
     }
 
     @CrossOrigin
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Curso>> getAllCursos() throws CursoNotFoundException {
         logger.debug("BUSCANDO TODOS OS CURSOS DA BASE ...");
         List<Curso> cursoList = cursoService.getAllCursos();
@@ -47,7 +47,7 @@ public class CursoController {
     }
 
     @CrossOrigin
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Curso> addCurso(@Valid @RequestBody Curso newCurso) throws CursoApplicationException {
         logger.debug("CURSO A SER ADICIONADO:\n" + newCurso);
         Curso curso = cursoService.addCurso(newCurso);
@@ -58,7 +58,7 @@ public class CursoController {
     }
 
     @CrossOrigin
-    @PutMapping(value="/id/{id}")
+    @PutMapping(value="/{id}")
     public ResponseEntity<Void> update(@PathVariable("id") Integer id,
                                         @RequestBody Curso cursoAtualizado) throws CursoApplicationException {
         cursoService.updateCurso(id, cursoAtualizado);
@@ -67,7 +67,7 @@ public class CursoController {
     }
 
     @CrossOrigin
-    @DeleteMapping(value = "/id/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws CursoNotFoundException {
         cursoService.deleteCurso(id);
 

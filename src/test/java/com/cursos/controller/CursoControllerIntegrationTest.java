@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CursoControllerIntegrationTest {
 
     private static final String CURSO_BASE_URL_SUFFIX = "/cursos";
-    private static final String CURSO_ID_SUFFIX = CURSO_BASE_URL_SUFFIX + "/id";
     private static final String CURSO_ID_EXISTENTE = "1";
     private static final String CURSO_ID_NAO_EXISTENTE = "2";
 
@@ -35,7 +34,7 @@ public class CursoControllerIntegrationTest {
 
     @Test
     public void testGetCursoExistenteByIDShouldReturnCurso() throws Exception {
-        String uri = CURSO_ID_SUFFIX + "/" + CURSO_ID_EXISTENTE;
+        String uri = CURSO_BASE_URL_SUFFIX + "/" + CURSO_ID_EXISTENTE;
 
        this.mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -53,7 +52,7 @@ public class CursoControllerIntegrationTest {
 
     @Test
     public void testGetCursoNaoExistenteByIDShouldReturnCursoNotFound() throws Exception {
-        String uri = CURSO_ID_SUFFIX + "/" + CURSO_ID_NAO_EXISTENTE;
+        String uri = CURSO_BASE_URL_SUFFIX + "/" + CURSO_ID_NAO_EXISTENTE;
 
         this.mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -195,7 +194,7 @@ public class CursoControllerIntegrationTest {
     @Test
     @Transactional
     public void testDeleteCursoExistenteShouldReturnNoContent() throws Exception {
-        String uri = CURSO_ID_SUFFIX + "/" + CURSO_ID_EXISTENTE;
+        String uri = CURSO_BASE_URL_SUFFIX + "/" + CURSO_ID_EXISTENTE;
 
         this.mockMvc.perform(MockMvcRequestBuilders.delete(uri)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -206,7 +205,7 @@ public class CursoControllerIntegrationTest {
     @Test
     @Transactional
     public void testDeleteCursoNaoExistenteShouldReturnCursoNotFound() throws Exception {
-        String uri = CURSO_ID_SUFFIX + "/" + CURSO_ID_NAO_EXISTENTE;
+        String uri = CURSO_BASE_URL_SUFFIX + "/" + CURSO_ID_NAO_EXISTENTE;
 
         this.mockMvc.perform(MockMvcRequestBuilders.delete(uri)
                 .contentType(MediaType.APPLICATION_JSON))
