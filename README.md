@@ -35,11 +35,11 @@ GET /cursos
 ```
 Para obter os dados de determinado curso pelo identificador:
 ```
-GET /cursos/id/{id}
+GET /cursos/{id}
 ```
 Para obter os dados de determinado curso pela descrição:
 ```
-GET /cursos/descricao/{descricao}
+GET /cursos/curso?descricao=<descricao>
 ```
 Para adicionar um curso:
 ```
@@ -51,7 +51,7 @@ DELETE /cursos/{id}
 ```
 Para atualizar as informações de um curso:
 ```
-PUT /cursos/id/{id}
+PUT /cursos/{id}
 ```
 
 
