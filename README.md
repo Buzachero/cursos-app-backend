@@ -7,6 +7,7 @@ Aplicação que gerencia informações de cursos
 * [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 * [JUnit 5](https://junit.org/junit5/)
 * [H2](https://www.h2database.com/html/main.html)
+* [Swagger](https://swagger.io/)
 
 ## Requerimentos
 
@@ -27,32 +28,6 @@ Para execução dos testes integrados:
 mvn clean test
 ```
 
-## Uso da aplicação
-
-Para obter os dados de todos os cursos inicialmente populados:
-```
-GET /cursos
-```
-Para obter os dados de determinado curso pelo identificador:
-```
-GET /cursos/{id}
-```
-Para obter os dados de determinado curso pela descrição:
-```
-GET /cursos/curso?descricao=<descricao>
-```
-Para adicionar um curso:
-```
-POST /cursos
-```
-Para remover um curso:
-```
-DELETE /cursos/{id}
-```
-Para atualizar as informações de um curso:
-```
-PUT /cursos/{id}
-```
 
 
 
